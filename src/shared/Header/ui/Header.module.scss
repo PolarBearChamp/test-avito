@@ -1,0 +1,17 @@
+.Header {
+  max-width: 100%;
+  margin: 50px;
+}
+
+@media (max-width: 1076px) {
+  .Header {
+    margin: 30px 50px;
+  }
+}
+
+@media(max-width: 756px) {
+  .Header {
+    width: fit-content;
+    margin: 30px auto;
+  }
+}

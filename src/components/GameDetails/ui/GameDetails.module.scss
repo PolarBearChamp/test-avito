@@ -1,0 +1,76 @@
+.GameDetails {
+  display: grid;
+  grid-template-areas:
+    "TITLE TITLE"
+    "PICTURE DETAILS"
+    "CAROUSEL SYSTEM";
+  grid-template-rows: 75px 240px 240px;
+  grid-template-columns: 500px 300px;
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-block: auto;
+  }
+
+  .gamePicture {
+    grid-area: PICTURE;
+    margin: auto;
+  }
+
+  .title {
+    grid-area: TITLE;
+    font-size: var(--font-xl);
+    font-weight: 700;
+    margin: auto;
+  }
+
+  .details {
+    grid-area: DETAILS;
+  }
+
+  .system {
+    grid-area: SYSTEM;
+  }
+
+  .carousel {
+    grid-area: CAROUSEL;
+    width: 365px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+}
+
+@media (max-width: 856px) {
+  .GameDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+
+    .title {
+      text-align: center;
+      width: 90vw;
+    }
+
+    .gamePicture {
+      width: 90vw;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 90vw;
+    }
+
+    .carousel {
+      width: 90vw;
+      height: 300px;
+    }
+  }
+}

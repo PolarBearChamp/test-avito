@@ -1,0 +1,14 @@
+.MainPage {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  justify-items: center;
+  justify-self: center;
+  margin: 0 50px;
+}
+
+@media (max-width: 756px) {
+  .MainPage {
+    display: flex;
+    margin: 0;
+  }
+}

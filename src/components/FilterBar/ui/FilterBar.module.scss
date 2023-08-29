@@ -1,0 +1,57 @@
+.FilterWidget {
+  background: var(--bg-secondary);
+  padding: 32px;
+  border-radius: 12px;
+  width: 220px;
+
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .subtitle {
+    font: var(--font-l);
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .mobile {
+    display: none;
+  }
+}
+
+
+@media (max-width: 756px) {
+  .FilterWidget {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    z-index: 10;
+    padding: 20px 30px;
+    border-radius: 0;
+
+    .mobile {
+      display: block;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .genreList {
+      height: 200px;
+      overflow-y: scroll;
+    }
+  }
+  .closed {
+    height: 75px;
+  }
+}
