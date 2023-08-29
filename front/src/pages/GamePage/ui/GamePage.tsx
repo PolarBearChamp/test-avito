@@ -1,7 +1,7 @@
 // @ts-ignore
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { useGetGameByIdQuery } from '../../../services/api.ts'
+import { useGetGameByIdQuery } from '../../../store/api.ts'
 import { Button, Skeleton } from 'antd'
 import ErrorModal from '../../../shared/ErrorModal/ErrorModal.tsx'
 import GameDetails from '../../../components/GameDetails/ui/GameDetails.tsx'

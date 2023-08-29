@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { api } from '../services/api.ts'
+import { api } from './api.ts'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { filterSlice } from './slice/filterSlice.ts'
 

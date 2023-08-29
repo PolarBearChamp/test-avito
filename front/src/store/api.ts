@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { API_BASE_URL } from '../constants'
+import { API_BASE_URL, X_RapidAPI_Host, X_RapidAPI_Key } from '../constants'
 import { FullGame, ShortGame } from '../types'
 
 export const api = createApi({
@@ -7,14 +7,8 @@ export const api = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: API_BASE_URL,
         prepareHeaders: (headers) => {
-            headers.set(
-                'X-RapidAPI-Key',
-                '8912b5836cmsh653f70e27deda63p1cb563jsn7368c8120e4e'
-            )
-            headers.set(
-                'X-RapidAPI-Host',
-                'free-to-play-games-database.p.rapidapi.com'
-            )
+            headers.set('X-RapidAPI-Key', X_RapidAPI_Key)
+            headers.set('X-RapidAPI-Host', X_RapidAPI_Host)
             return headers
         },
     }),
