@@ -41,11 +41,11 @@ export const sortOptions: Map<string, SortStateItem> = new Map([
 export const platformOptions: CheckboxOptionType[] = [
     {
         label: 'Компьютер',
-        value: 'PC',
+        value: 'pc',
     },
     {
         label: 'Браузер',
-        value: 'Browser',
+        value: 'browser',
     },
 ]
 

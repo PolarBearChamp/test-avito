@@ -46,7 +46,6 @@ export interface GameCardProps
 export interface FilterState {
     genres: string[]
     platforms: string[]
-    sortBy: string
 }
 
 export interface SortState {

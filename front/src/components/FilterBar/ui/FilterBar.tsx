@@ -6,34 +6,25 @@ import CheckboxGroup from '../../../shared/CheckboxGroup/CheckboxGroup.tsx'
 import { genreOptions, platformOptions } from '../../../constants/mock'
 import { clsx } from 'clsx'
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
-import {
-    resetAll,
-    setGenres,
-    setPlatforms,
-} from '../../../store/filter/filterSlice.ts'
+import { setGenres, setPlatforms } from '../../../store/filter/filterSlice.ts'
 import { useAppDispatch } from '../../../hooks/useAppDispatch.ts'
 import { useSelectGenres } from '../../../store/filter/selectors/useSelectGenres.ts'
 import { useSelectPlatforms } from '../../../store/filter/selectors/useSelectPlatforms.ts'
+import { useSelectSort } from '../../../store/sort/selectors/useSelectSort.ts'
+import { SortType } from '../../../types'
 
-const FilterBar: FC = () => {
+interface IProps {
+    onReset: () => void
+}
+
+const FilterBar: FC<IProps> = ({ onReset }) => {
     const [collapsed, setCollapsed] = useState<boolean>(false)
     const [isClosed, setIsClosed] = useState(true)
     const dispatch = useAppDispatch()
 
     const selectedGenres = useSelectGenres()
     const selectedPlatforms = useSelectPlatforms()
-
-    // const [getFiltered, { data, isError, isLoading }] =
-    //     useLazyGetFilteredGamesQuery()
-    // if (selectedGenres.length !== 0) {
-    //     let queryString = selectedGenres.join('.')
-    //     getFiltered(queryString)
-    //     dispatch(setGames(data!))
-    // }
-    const onReset = () => {
-        dispatch(resetAll())
-    }
-
+    const selectedSort = useSelectSort()
     const onClose = () => {
         setIsClosed((prevState) => !prevState)
     }
@@ -93,7 +84,8 @@ const FilterBar: FC = () => {
                     onClick={onReset}
                     disabled={
                         selectedGenres.length === 0 &&
-                        selectedPlatforms.length === 0
+                        selectedPlatforms.length === 0 &&
+                        selectedSort.sort.type === SortType.NONE
                     }
                 >
                     Сбросить

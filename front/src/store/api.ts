@@ -21,13 +21,11 @@ export const api = createApi({
             query: (id) => `game?id=${id}`,
             keepUnusedDataFor: 5 * 60,
         }),
-        getGamesByAll: builder.query<ShortGame[], string>({
-            query: ([platform, category, sortType]) =>
-                `games?platform=${platform}&category=${category}&sort-by=${sortType}`,
+        getGamesByParameters: builder.query<ShortGame[], string>({
+            query: (params) => `games${params}`,
         }),
         getFilteredGames: builder.query<ShortGame[], string>({
-            query: ([tags, platforms, sortType]) =>
-                `filter?tag=${tags}&platform=${platforms}&sort-by=${sortType}`,
+            query: (params) => `filter${params}`,
         }),
     }),
 })
@@ -35,6 +33,6 @@ export const api = createApi({
 export const {
     useLazyGetAllGamesQuery,
     useGetGameByIdQuery,
-    useLazyGetGamesByAllQuery,
+    useLazyGetGamesByParametersQuery,
     useLazyGetFilteredGamesQuery,
 } = api

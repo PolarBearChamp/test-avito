@@ -4,7 +4,6 @@ import { FilterState } from '../../types'
 const initialState: FilterState = {
     genres: [],
     platforms: [],
-    sortBy: '',
 }
 
 export const filterSlice = createSlice({
