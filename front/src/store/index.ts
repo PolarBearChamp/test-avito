@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { api } from './api.ts'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { filterSlice } from './filter/filterSlice.ts'
-import { gamesSlice } from './games/gamesSlice.ts'
-import { sortSlice } from './sort/sortSlice.ts'
+import { filterSlice } from './slices/filterSlice.ts'
+import { gamesSlice } from './slices/gamesSlice.ts'
+import { sortSlice } from './slices/sortSlice.ts'
 
 export const store = configureStore({
     reducer: {

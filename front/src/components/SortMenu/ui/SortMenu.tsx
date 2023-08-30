@@ -1,12 +1,12 @@
 //@ts-ignore
 import React, { FC, useState } from 'react'
-import { useSelectSort } from '../../../store/sort/selectors/useSelectSort.ts'
+import { useSelectSort } from '../../../store/selectors/useSelectSort.ts'
 import { useAppDispatch } from '../../../hooks/useAppDispatch.ts'
 import { clsx } from 'clsx'
 import cls from './SortMenu.module.scss'
 import { sortOptions } from '../../../constants/mock.ts'
 import { SortStateItem } from '../../../types'
-import { setSort } from '../../../store/sort/sortSlice.ts'
+import { setSort } from '../../../store/slices/sortSlice.ts'
 
 const SortMenu: FC = () => {
     const currentSort = useSelectSort()

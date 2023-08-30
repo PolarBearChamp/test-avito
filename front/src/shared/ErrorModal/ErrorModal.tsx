@@ -1,28 +1,20 @@
 import React, { useEffect } from 'react'
 import { Modal } from 'antd'
+import { useNavigate } from 'react-router-dom'
 
 const ErrorModal: React.FC = () => {
     const [modal, contextHolder] = Modal.useModal()
+    const navigate = useNavigate()
 
     const countDown = () => {
-        let secondsToGo = 3
-
         const instance = modal.error({
-            title: 'Error',
-            content: `Modal will be closed in ${secondsToGo}.`,
+            title: 'Произошла ошибка',
+            content: `Запрашиваемой страницы не существует. Вернитесь на главную`,
+            onOk: () => {
+                instance.destroy()
+                navigate('/')
+            },
         })
-
-        const timer = setInterval(() => {
-            secondsToGo -= 1
-            instance.update({
-                content: `Modal will be closed in ${secondsToGo}.`,
-            })
-        }, 1000)
-
-        setTimeout(() => {
-            clearInterval(timer)
-            instance.destroy()
-        }, secondsToGo * 1000)
     }
     useEffect(() => {
         countDown()

@@ -10,6 +10,7 @@ import cls from './GamePage.module.scss'
 const GamePage = () => {
     const params = useParams()
     const gameId = params.gameId
+
     const { isLoading, isError, data } = useGetGameByIdQuery(+gameId!)
 
     if (isLoading) {
@@ -24,15 +25,16 @@ const GamePage = () => {
             />
         )
     }
+
     if (isError) {
         return <ErrorModal />
     }
-
     return (
         <div className={cls.GamePage}>
             <Link to={'/'}>
                 <Button type={'primary'}>Назад к списку</Button>
             </Link>
+
             {data && <GameDetails {...data} />}
         </div>
     )
