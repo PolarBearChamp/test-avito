@@ -4,34 +4,33 @@ import { FilterBar } from '../../../components/FilterBar'
 import { GameList } from '../../../components/GameList'
 import cls from './MainPage.module.scss'
 import { useLazyGetAllGamesQuery } from '../../../store/api.ts'
+import { useGetGames } from '../../../store/games/selectors/useGetGames.ts'
+import { useAppDispatch } from '../../../hooks/useAppDispatch.ts'
+import { setGames } from '../../../store/games/gamesSlice.ts'
+import { SortMenu } from '../../../components/SortMenu'
 
 const MainPage = () => {
-    const [triggerAll, result] = useLazyGetAllGamesQuery()
+    const currentGames = useGetGames()
+    const dispatch = useAppDispatch()
+
+    const [getGames, { data, isError, isLoading }] = useLazyGetAllGamesQuery()
 
     useEffect(() => {
-        triggerAll()
+        getGames()
+        dispatch(setGames(data!))
     }, [])
 
-    if (result.status === 'pending') {
-        return (
-            <div className={cls.MainPage}>
-                <FilterBar />
-                <GameList games={[]} isLoading={true} isError={false} />
-            </div>
-        )
-    } else {
-        const { data: allGames, isError, isLoading } = result
-        return (
-            <div className={cls.MainPage}>
-                <FilterBar />
-                <GameList
-                    games={allGames!}
-                    isLoading={isLoading}
-                    isError={isError}
-                />
-            </div>
-        )
-    }
+    return (
+        <div className={cls.MainPage}>
+            <FilterBar />
+            <SortMenu />
+            <GameList
+                games={currentGames}
+                isLoading={isLoading}
+                isError={isError}
+            />
+        </div>
+    )
 }
 
 export default MainPage

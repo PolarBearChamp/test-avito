@@ -1,10 +1,10 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {FilterState} from '../../types'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { FilterState } from '../../types'
 
-// Define the initial state using that type
 const initialState: FilterState = {
     genres: [],
     platforms: [],
+    sortBy: '',
 }
 
 export const filterSlice = createSlice({
@@ -17,6 +17,7 @@ export const filterSlice = createSlice({
         setPlatforms: (state, action: PayloadAction<string[]>) => {
             state.platforms = action.payload
         },
+
         resetAll: (state) => {
             state.genres = []
             state.platforms = []

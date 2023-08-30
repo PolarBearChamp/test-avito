@@ -2,11 +2,15 @@ import { configureStore } from '@reduxjs/toolkit'
 import { api } from './api.ts'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { filterSlice } from './filter/filterSlice.ts'
+import { gamesSlice } from './games/gamesSlice.ts'
+import { sortSlice } from './sort/sortSlice.ts'
 
 export const store = configureStore({
     reducer: {
         [api.reducerPath]: api.reducer,
         filter: filterSlice.reducer,
+        games: gamesSlice.reducer,
+        sort: sortSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(api.middleware),

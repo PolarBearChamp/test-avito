@@ -23,6 +23,13 @@ const FilterBar: FC = () => {
     const selectedGenres = useSelectGenres()
     const selectedPlatforms = useSelectPlatforms()
 
+    // const [getFiltered, { data, isError, isLoading }] =
+    //     useLazyGetFilteredGamesQuery()
+    // if (selectedGenres.length !== 0) {
+    //     let queryString = selectedGenres.join('.')
+    //     getFiltered(queryString)
+    //     dispatch(setGames(data!))
+    // }
     const onReset = () => {
         dispatch(resetAll())
     }
@@ -66,7 +73,6 @@ const FilterBar: FC = () => {
             </div>
             <div>
                 <div className={cls.subtitle}>Жанр</div>
-
                 <div className={cls.genreList}>
                     <CheckboxGroup
                         options={

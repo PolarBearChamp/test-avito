@@ -4,11 +4,18 @@
   justify-items: center;
   justify-self: center;
   margin: 0 50px;
+
+  grid-template-rows: 50px 1fr;
+
+  grid-template-areas:
+    "SORT SORT"
+    "FILTER LIST";
 }
 
 @media (max-width: 756px) {
   .MainPage {
     display: flex;
+    flex-direction: column;
     margin: 0;
   }
 }

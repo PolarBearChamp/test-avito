@@ -46,9 +46,30 @@ export interface GameCardProps
 export interface FilterState {
     genres: string[]
     platforms: string[]
+    sortBy: string
 }
 
-export const enum FilterType {
-    GENRES = 'genres',
-    PLATFORMS = 'platforms',
+export interface SortState {
+    sort: SortStateItem
+}
+
+export interface SortStateItem {
+    type: SortType
+    label: SortLabel
+}
+
+export const enum SortType {
+    RELEASE_DATE = 'release-date',
+    POPULARITY = 'popularity',
+    ALPHABETICAL = 'alphabetical',
+    RELEVANCE = 'relevance',
+    NONE = '',
+}
+
+export const enum SortLabel {
+    RELEASE_DATE = 'По дате релиза',
+    POPULARITY = 'По популярности',
+    ALPHABETICAL = 'По алфавиту',
+    RELEVANCE = 'По релевантности',
+    NONE = 'Выбрать сортировку',
 }

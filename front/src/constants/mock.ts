@@ -1,5 +1,43 @@
 import { CheckboxOptionType } from 'antd/es/checkbox/Group'
+import { SortLabel, SortStateItem, SortType } from '../types'
 
+export const sortOptions: Map<string, SortStateItem> = new Map([
+    [
+        'none',
+        {
+            type: SortType.NONE,
+            label: SortLabel.NONE,
+        },
+    ],
+    [
+        'popularity',
+        {
+            type: SortType.POPULARITY,
+            label: SortLabel.POPULARITY,
+        },
+    ],
+    [
+        'alphabetical',
+        {
+            type: SortType.ALPHABETICAL,
+            label: SortLabel.ALPHABETICAL,
+        },
+    ],
+    [
+        'releaseDate',
+        {
+            type: SortType.RELEASE_DATE,
+            label: SortLabel.RELEASE_DATE,
+        },
+    ],
+    [
+        'relevance',
+        {
+            type: SortType.RELEVANCE,
+            label: SortLabel.RELEVANCE,
+        },
+    ],
+])
 export const platformOptions: CheckboxOptionType[] = [
     {
         label: 'Компьютер',

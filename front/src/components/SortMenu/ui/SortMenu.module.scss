@@ -1,0 +1,39 @@
+.SortMenu {
+  grid-area: SORT;
+  margin-right: auto;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  width: 180px;
+}
+
+.customDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownHeader {
+  cursor: pointer;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  border: 1px solid #ccc;
+  background-color: var(--bg-color);
+  border-radius: 4px;
+  z-index: 1;
+
+  li {
+    cursor: pointer;
+    padding: 8px;
+
+    &:hover {
+      background-color: var(--bg-secondary);
+    }
+  }
+}
