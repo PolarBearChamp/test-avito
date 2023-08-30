@@ -2,7 +2,7 @@
 import React, { FC } from 'react'
 import { Card, Space, Tag } from 'antd'
 import { GameCardProps } from '../../../types'
-import { formattedDate } from '../../../utils/getFormattedDate.ts'
+import { formattedDate } from '../../../utils/getFormattedDate/getFormattedDate.ts'
 
 const GameCard: FC<GameCardProps> = ({
     title,

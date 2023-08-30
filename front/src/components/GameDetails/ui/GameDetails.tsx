@@ -1,7 +1,7 @@
 //@ts-ignore
 import React, { FC } from 'react'
 import { FullGame } from '../../../types'
-import { formattedDate } from '../../../utils/getFormattedDate.ts'
+import { formattedDate } from '../../../utils/getFormattedDate/getFormattedDate.ts'
 import CarouselWrapper from '../../../shared/Carousel/Carousel.tsx'
 import cls from './GameDetails.module.scss'
 import { clsx } from 'clsx'
