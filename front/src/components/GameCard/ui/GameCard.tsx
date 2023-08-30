@@ -22,7 +22,7 @@ const GameCard: FC<GameCardProps> = ({
                 <div>
                     <b>Вышла:</b> {formattedDate(release_date)}
                 </div>
-                <Space size={[0, 2]} direction={'vertical'}>
+                <Space size={2} direction={'vertical'}>
                     <b>Издатель:</b>
                     <Tag
                         color="magenta"

@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { api } from './api.ts'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { filterSlice } from './slice/filterSlice.ts'
+import { filterSlice } from './filter/filterSlice.ts'
 
 export const store = configureStore({
     reducer: {

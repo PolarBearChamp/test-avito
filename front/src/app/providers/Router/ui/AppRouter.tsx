@@ -2,7 +2,6 @@
 import React, { Suspense } from 'react'
 
 import { Route, Routes } from 'react-router-dom'
-import { Spin } from 'antd'
 import { routeConfig } from '../../../../shared/config'
 
 const AppRouter = () => (
@@ -11,7 +10,7 @@ const AppRouter = () => (
             <Route
                 key={path}
                 path={path}
-                element={<Suspense fallback={<Spin />}>{element}</Suspense>}
+                element={<Suspense fallback={''}>{element}</Suspense>}
             />
         ))}
     </Routes>

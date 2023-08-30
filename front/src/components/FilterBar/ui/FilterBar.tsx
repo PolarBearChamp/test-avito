@@ -7,25 +7,25 @@ import { genreOptions, platformOptions } from '../../../constants/mock'
 import { clsx } from 'clsx'
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import {
-    selectGenres,
-    selectPlatforms,
+    resetAll,
     setGenres,
     setPlatforms,
-} from '../../../store/slice/filterSlice.ts'
+} from '../../../store/filter/filterSlice.ts'
 import { useAppDispatch } from '../../../hooks/useAppDispatch.ts'
-import { useAppSelector } from '../../../hooks/useAppSelector.ts'
+import { useSelectGenres } from '../../../store/filter/selectors/useSelectGenres.ts'
+import { useSelectPlatforms } from '../../../store/filter/selectors/useSelectPlatforms.ts'
 
-interface IProps {
-    onReset: () => void
-}
-
-const FilterBar: FC<IProps> = ({ onReset }) => {
+const FilterBar: FC = () => {
     const [collapsed, setCollapsed] = useState<boolean>(false)
     const [isClosed, setIsClosed] = useState(true)
     const dispatch = useAppDispatch()
 
-    const selectedGenres = useAppSelector(selectGenres)
-    const selectedPlatforms = useAppSelector(selectPlatforms)
+    const selectedGenres = useSelectGenres()
+    const selectedPlatforms = useSelectPlatforms()
+
+    const onReset = () => {
+        dispatch(resetAll())
+    }
 
     const onClose = () => {
         setIsClosed((prevState) => !prevState)

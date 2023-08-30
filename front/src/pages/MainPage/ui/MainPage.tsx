@@ -1,34 +1,37 @@
 //@ts-ignore
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { FilterBar } from '../../../components/FilterBar'
 import { GameList } from '../../../components/GameList'
 import cls from './MainPage.module.scss'
-import { useGetAllGamesQuery } from '../../../store/api.ts'
-import { useAppDispatch } from '../../../hooks/useAppDispatch.ts'
-import { resetAll } from '../../../store/slice/filterSlice.ts'
-import { ShortGame } from '../../../types'
+import { useLazyGetAllGamesQuery } from '../../../store/api.ts'
 
 const MainPage = () => {
-    const dispatch = useAppDispatch()
-
-    const [games, setGames] = useState<ShortGame[]>([])
-
-    const { data: allGames = [], isLoading, isError } = useGetAllGamesQuery()
-
-    const onReset = () => {
-        dispatch(resetAll())
-    }
+    const [triggerAll, result] = useLazyGetAllGamesQuery()
 
     useEffect(() => {
-        setGames(allGames)
-    }, [allGames])
+        triggerAll()
+    }, [])
 
-    return (
-        <div className={cls.MainPage}>
-            <FilterBar onReset={onReset} />
-            <GameList games={games} isLoading={isLoading} isError={isError} />
-        </div>
-    )
+    if (result.status === 'pending') {
+        return (
+            <div className={cls.MainPage}>
+                <FilterBar />
+                <GameList games={[]} isLoading={true} isError={false} />
+            </div>
+        )
+    } else {
+        const { data: allGames, isError, isLoading } = result
+        return (
+            <div className={cls.MainPage}>
+                <FilterBar />
+                <GameList
+                    games={allGames!}
+                    isLoading={isLoading}
+                    isError={isError}
+                />
+            </div>
+        )
+    }
 }
 
 export default MainPage

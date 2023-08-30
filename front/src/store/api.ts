@@ -42,11 +42,11 @@ export const api = createApi({
 })
 
 export const {
-    useGetAllGamesQuery,
-    useGetGamesByPlatformQuery,
-    useGetGamesByCategoryQuery,
-    useGetGamesByAllQuery,
-    useGetSortedGamesQuery,
+    useLazyGetAllGamesQuery,
     useGetGameByIdQuery,
-    useGetFilteredGamesQuery,
+    useLazyGetGamesByPlatformQuery,
+    useLazyGetGamesByCategoryQuery,
+    useLazyGetGamesByAllQuery,
+    useLazyGetSortedGamesQuery,
+    useLazyGetFilteredGamesQuery,
 } = api

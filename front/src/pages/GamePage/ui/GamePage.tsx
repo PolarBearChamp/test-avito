@@ -13,7 +13,16 @@ const GamePage = () => {
     const { isLoading, isError, data } = useGetGameByIdQuery(+gameId!)
 
     if (isLoading) {
-        return <Skeleton />
+        return (
+            <Skeleton
+                active
+                style={{
+                    maxWidth: '600px',
+                    marginInline: 'auto',
+                    marginBlock: '200px',
+                }}
+            />
+        )
     }
     if (isError) {
         return <ErrorModal />

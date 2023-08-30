@@ -4,7 +4,7 @@ import { GameCard } from '../../GameCard'
 import cls from './GameList.module.scss'
 import { Link } from 'react-router-dom'
 import { ShortGame } from '../../../types'
-import { Skeleton } from 'antd'
+import { Spin } from 'antd'
 import ErrorModal from '../../../shared/ErrorModal/ErrorModal.tsx'
 
 interface IProps {
@@ -15,7 +15,7 @@ interface IProps {
 
 const GameList: FC<IProps> = ({ games, isLoading, isError }) => {
     if (isLoading) {
-        return <Skeleton className={cls.GameList} />
+        return <Spin size="large" style={{ margin: 'auto' }} />
     }
     if (isError) {
         return <ErrorModal />
@@ -26,6 +26,7 @@ const GameList: FC<IProps> = ({ games, isLoading, isError }) => {
                 return (
                     <Link to={`games/${game.id}`} key={game.id}>
                         <GameCard
+                            key={game.id}
                             title={game.title}
                             genre={game.genre}
                             publisher={game.publisher}
