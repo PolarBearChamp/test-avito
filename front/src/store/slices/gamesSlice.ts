@@ -54,6 +54,25 @@ export const gamesSlice = createSlice({
                     state.isLoading = false
                 }
             )
+            .addMatcher(
+                api.endpoints?.getGamesByParameters.matchPending,
+                (state) => {
+                    state.isLoading = true
+                }
+            )
+            .addMatcher(
+                api.endpoints.getGamesByParameters.matchFulfilled,
+                (state, action) => {
+                    state.isLoading = false
+                    state.games = action.payload
+                }
+            )
+            .addMatcher(
+                api.endpoints.getGamesByParameters.matchRejected,
+                (state) => {
+                    state.isLoading = false
+                }
+            )
     },
 })
 export const { setGames } = gamesSlice.actions
