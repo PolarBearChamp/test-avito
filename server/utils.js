@@ -8,6 +8,9 @@ const config_1 = __importDefault(require("./config"));
 const parseQuery = (url) => url.split("?");
 exports.parseQuery = parseQuery;
 const getChunk = (index = 0, data) => {
-    return data.slice(index * config_1.default.CHUNK_SIZE, index * config_1.default.CHUNK_SIZE + config_1.default.CHUNK_SIZE);
+    const slice = index * config_1.default.CHUNK_SIZE;
+    if (slice > data.length) {
+    }
+    return data.slice(slice, slice + config_1.default.CHUNK_SIZE);
 };
 exports.getChunk = getChunk;
