@@ -1,0 +1,17 @@
+.visible {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-secondary);
+  z-index: 1;
+}
+
+@media (max-width: 756px) {
+  .visible {
+    bottom: 100px;
+    right: 20px;
+  }
+}

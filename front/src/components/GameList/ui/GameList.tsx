@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { ShortGame } from '../../../types'
 import { Spin } from 'antd'
 import ErrorModal from '../../../shared/ErrorModal/ErrorModal.tsx'
+import { ScrollToTopButton } from '../../ScrollToTopButton'
 
 interface IProps {
     games: ShortGame[]
@@ -26,21 +27,24 @@ const GameList: FC<IProps> = ({ games, isLoading, isError }) => {
         )
     }
     return (
-        <div className={cls.GameList}>
-            {games?.map((game) => {
-                return (
-                    <Link to={`games/${game.id}`} key={game.id}>
-                        <GameCard
-                            key={game.id}
-                            title={game.title}
-                            genre={game.genre}
-                            publisher={game.publisher}
-                            release_date={game.release_date}
-                            thumbnail={game.thumbnail}
-                        />
-                    </Link>
-                )
-            })}
+        <div>
+            <ScrollToTopButton />
+            <div className={cls.GameList}>
+                {games?.map((game) => {
+                    return (
+                        <Link to={`games/${game.id}`} key={game.id}>
+                            <GameCard
+                                key={game.id}
+                                title={game.title}
+                                genre={game.genre}
+                                publisher={game.publisher}
+                                release_date={game.release_date}
+                                thumbnail={game.thumbnail}
+                            />
+                        </Link>
+                    )
+                })}
+            </div>
         </div>
     )
 }
