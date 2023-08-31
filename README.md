@@ -1,27 +1,32 @@
-# React + TypeScript + Vite
+# **Тестовое задание Avito. Направление Frontend.**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Техническое задание](<[http](https://github.com/avito-tech/frontend-trainee-assignment-2023)>)
 
-Currently, two official plugins are available:
+## **Цель**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Разработать интерфейс для сайта Free-To-Play Games, состоящий из двух страниц.
 
-## Expanding the ESLint configuration
+### Используемый стек
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+-   React
+-   Typescript
+-   Redux Toolkit
+-   RTK Query
+-   SCSS modules
+-   Ant Design
+-   Jest
 
-- Configure the top-level `parserOptions` property like this:
+### Инструкция по запуску
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Для проекта написан бэкенд на Node.js, реализующий дробление на чанки и кэширование данных. Запуск проекта осуществлять через него. Для этого после скачивания репозитория необходимо выполнить следующие команды:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. `cd front`
+2. `npm run build`
+3. `cd ../server`
+4. `node index.js`
+
+Также находясь в папке `/front` можно запустить unit-тесты командой: `npm run test:unit`.
+
+### Демо
+
+Проект доступен по [ссылке]()
