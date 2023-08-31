@@ -18,7 +18,12 @@ const GameList: FC<IProps> = ({ games, isLoading, isError }) => {
         return <Spin size="large" style={{ margin: 'auto' }} />
     }
     if (isError) {
-        return <ErrorModal />
+        return (
+            <ErrorModal
+                title={'Ошибка'}
+                message={'При загрузке списка произошла ошибка'}
+            />
+        )
     }
     return (
         <div className={cls.GameList}>

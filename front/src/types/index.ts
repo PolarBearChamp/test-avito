@@ -70,5 +70,5 @@ export const enum SortLabel {
     POPULARITY = 'По популярности',
     ALPHABETICAL = 'По алфавиту',
     RELEVANCE = 'По релевантности',
-    NONE = 'Выбрать сортировку',
+    NONE = 'Сортировать по:',
 }

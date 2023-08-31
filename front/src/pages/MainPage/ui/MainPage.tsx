@@ -89,63 +89,6 @@ const MainPage = () => {
         }
     }, [currentGenres, currentPlatforms, currentSort])
 
-    // useEffect(() => {
-    //     if (
-    //         currentGenres.length === 0 &&
-    //         currentSort.sort.type === SortType.NONE &&
-    //         currentPlatforms.length === 0
-    //     ) {
-    //         getAllGames()
-    //         dispatch(setGames(allGamesResult.data!))
-    //     }
-    //     if (currentGenres.length === 0) {
-    //         const result: string[] = []
-    //         const platforms =
-    //             currentPlatforms.length === 2 ? 'all' : currentPlatforms[0]
-    //         const platformString = 'platform=' + platforms
-    //         if (platforms) result.push(platformString)
-    //
-    //         const sort =
-    //             currentSort.sort.type !== SortType.NONE
-    //                 ? currentSort.sort.type
-    //                 : null
-    //
-    //         const sortString = 'sort-by=' + sort
-    //         if (sort) result.push(sortString)
-    //         const total = result.join('&')
-    //
-    //         getGamesByParameters(`?${total}`)
-    //         dispatch(setGames(gamesByParametersResult.data!))
-    //     } else {
-    //         const result: string[] = []
-    //
-    //         const genres = getTagsString(currentGenres)
-    //         const genresString = 'tag=' + genres
-    //
-    //         result.push(genresString)
-    //
-    //         const platforms =
-    //             currentPlatforms.length === 2 || currentPlatforms.length === 0
-    //                 ? 'all'
-    //                 : currentPlatforms[0]
-    //         const platformString = 'platform=' + platforms
-    //
-    //         result.push(platformString)
-    //
-    //         const sort =
-    //             currentSort.sort.type !== SortType.NONE
-    //                 ? currentSort.sort.type
-    //                 : null
-    //
-    //         const sortString = 'sort-by=' + sort
-    //         if (sort) result.push(sortString)
-    //         const total = result.join('&')
-    //
-    //         getFilteredGames(`?${total}`)
-    //         dispatch(setGames(filteredGamesResult.data!))
-    //     }
-    // }, [currentGenres, currentPlatforms, currentSort])
-
     return (
         <div className={cls.MainPage}>
             <FilterBar onReset={onReset} />

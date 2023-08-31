@@ -55,7 +55,7 @@ export const gamesSlice = createSlice({
                 }
             )
             .addMatcher(
-                api.endpoints?.getGamesByParameters.matchPending,
+                api.endpoints.getGamesByParameters.matchPending,
                 (state) => {
                     state.isLoading = true
                 }

@@ -2,14 +2,19 @@ import React, { useEffect } from 'react'
 import { Modal } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
-const ErrorModal: React.FC = () => {
+interface IProps {
+    title: string
+    message: string
+}
+
+const ErrorModal: React.FC<IProps> = ({ title, message }) => {
     const [modal, contextHolder] = Modal.useModal()
     const navigate = useNavigate()
 
-    const countDown = () => {
+    const mount = () => {
         const instance = modal.error({
-            title: 'Произошла ошибка',
-            content: `Запрашиваемой страницы не существует. Вернитесь на главную`,
+            title: title,
+            content: message,
             onOk: () => {
                 instance.destroy()
                 navigate('/')
@@ -17,7 +22,7 @@ const ErrorModal: React.FC = () => {
         })
     }
     useEffect(() => {
-        countDown()
+        mount()
     })
     return <>{contextHolder}</>
 }

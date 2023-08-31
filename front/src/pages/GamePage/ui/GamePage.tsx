@@ -11,9 +11,13 @@ const GamePage = () => {
     const params = useParams()
     const gameId = params.gameId
 
-    const { isLoading, isError, data } = useGetGameByIdQuery(+gameId!)
+    const {
+        isLoading: gamePageLoading,
+        isError: gamePageError,
+        data,
+    } = useGetGameByIdQuery(+gameId!)
 
-    if (isLoading) {
+    if (gamePageLoading) {
         return (
             <Skeleton
                 active
@@ -26,8 +30,13 @@ const GamePage = () => {
         )
     }
 
-    if (isError) {
-        return <ErrorModal />
+    if (gamePageError) {
+        return (
+            <ErrorModal
+                title={'Ошибка'}
+                message={'При загрузке страницы игры произошла ошибка'}
+            />
+        )
     }
     return (
         <div className={cls.GamePage}>
