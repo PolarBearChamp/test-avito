@@ -79,13 +79,13 @@ const MainPage = () => {
 
         if (queryParams === '') {
             getAllGames()
-            dispatch(setGames(allGamesResult.data))
+            dispatch(setGames(allGamesResult.data!))
         } else if (currentGenres.length > 0) {
             getFilteredGames(`?${queryParams}`)
-            dispatch(setGames(filteredGamesResult.data))
+            dispatch(setGames(filteredGamesResult.data!))
         } else {
             getGamesByParameters(`?${queryParams}`)
-            dispatch(setGames(gamesByParametersResult.data))
+            dispatch(setGames(gamesByParametersResult.data!))
         }
     }, [currentGenres, currentPlatforms, currentSort])
 

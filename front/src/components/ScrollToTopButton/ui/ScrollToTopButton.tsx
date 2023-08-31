@@ -1,3 +1,4 @@
+//@ts-ignore
 import React, { useEffect, useState } from 'react'
 import { ToTopOutlined } from '@ant-design/icons' // Импорт иконки (при необходимости)
 import cls from './ScrollToTopButton.module.scss'

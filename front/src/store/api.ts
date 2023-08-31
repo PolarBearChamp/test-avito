@@ -1,14 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { API_BASE_URL, X_RapidAPI_Host, X_RapidAPI_Key } from '../constants'
 import { FullGame, ShortGame } from '../types'
 
 export const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: API_BASE_URL,
+        baseUrl: import.meta.env.VITE_API_BASE_URL,
         prepareHeaders: (headers) => {
-            headers.set('X-RapidAPI-Key', X_RapidAPI_Key)
-            headers.set('X-RapidAPI-Host', X_RapidAPI_Host)
+            headers.set('X-RapidAPI-Key', import.meta.env.VITE_API_KEY)
+            headers.set('X-RapidAPI-Host', import.meta.env.VITE_API_HOST)
             return headers
         },
     }),
