@@ -1,5 +1,6 @@
 //@ts-ignore
 import React, { useEffect, useState } from 'react'
+import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 
 import {
     useLazyGetAllGamesQuery,
@@ -14,7 +15,6 @@ import {
     useSelectSort,
 } from '../../../store/selectors'
 
-import { setGames } from '../../../store/slices/gamesSlice.ts'
 import { resetAll } from '../../../store/slices/filterSlice.ts'
 import { resetSort } from '../../../store/slices/sortSlice.ts'
 
@@ -27,37 +27,24 @@ import { SortMenu } from '../../../components/SortMenu'
 import { GameList } from '../../../components/GameList'
 
 import cls from './MainPage.module.scss'
-import { useBottomScrollListener } from 'react-bottom-scroll-listener'
-
 const MainPage = () => {
-    const currentGames = useSelectGames()
-
+    const currentChunk = useSelectGames()
     const currentGenres = useSelectGenres()
     const currentPlatforms = useSelectPlatforms()
     const currentSort = useSelectSort()
 
-    const [isBottom, setIsBottom] = useState<boolean>(false)
-    const scroll = useBottomScrollListener(
-        () => {
-            setIsBottom((prevState) => !prevState)
-        },
-        { offset: 100 }
-    )
-
     const dispatch = useAppDispatch()
 
     const [getAllGames, allGamesResult] = useLazyGetAllGamesQuery()
-    const [getFilteredGames, filteredGamesResult] =
-        useLazyGetFilteredGamesQuery()
-    const [getGamesByParameters, gamesByParametersResult] =
-        useLazyGetGamesByParametersQuery()
+    const [getFilteredGames, filteredGamesResult] = useLazyGetFilteredGamesQuery()
+    const [getGamesByParameters, gamesByParametersResult] = useLazyGetGamesByParametersQuery()
     const onReset = () => {
         dispatch(resetAll())
         dispatch(resetSort())
         getAllGames()
     }
 
-    const generateQueryParams = () => {
+    const generateQueryParams = (chunk: number) => {
         const queryParams = []
 
         if (currentGenres.length > 0) {
@@ -74,39 +61,40 @@ const MainPage = () => {
         if (currentSort.sort.type !== SortType.NONE) {
             queryParams.push(`sort-by=${currentSort.sort.type}`)
         }
-
+        queryParams.push(`chunk=${chunk}`)
         return queryParams.join('&')
     }
-    useEffect(() => {
-        dispatch(setGames(currentGames))
-    }, [])
 
     useEffect(() => {
-        dispatch(setGames(currentGames))
-    }, [currentGames])
-
-    useEffect(() => {
-        const queryParams = generateQueryParams()
-
-        if (queryParams === '') {
-            getAllGames()
-            dispatch(setGames(allGamesResult.data!))
-        } else if (currentGenres.length > 0) {
+        const queryParams = generateQueryParams(0)
+        if (currentGenres.length > 0) {
             getFilteredGames(`?${queryParams}`)
-            dispatch(setGames(filteredGamesResult.data!))
+            // dispatch(setGames(filteredGamesResult.data!))
         } else {
             getGamesByParameters(`?${queryParams}`)
-            dispatch(setGames(gamesByParametersResult.data!))
+            // dispatch(setGames(gamesByParametersResult.data!))
         }
-    }, [currentGenres, currentPlatforms, currentSort, isBottom])
+    }, [dispatch, currentGenres, currentPlatforms, currentSort])
+
+    useBottomScrollListener(
+        () => {
+            const queryParams = generateQueryParams(currentChunk?.chunk)
+            if (currentGenres.length > 0) {
+                getFilteredGames(`?${queryParams}`)
+            } else {
+                getGamesByParameters(`?${queryParams}`)
+            }
+        },
+        { offset: 50 }
+    )
 
     return (
         <div className={cls.MainPage}>
             <FilterBar onReset={onReset} />
             <SortMenu />
             <GameList
-                games={currentGames}
-                isLoading={allGamesResult.isLoading}
+                games={currentChunk?.data}
+                isLoading={filteredGamesResult.isLoading || gamesByParametersResult.isLoading}
                 isError={allGamesResult.isError}
             />
         </div>

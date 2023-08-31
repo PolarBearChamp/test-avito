@@ -4,7 +4,7 @@ exports.API_PARAMS = void 0;
 const PORT = 5001;
 const CACHE_TIMEOUT = 10000;
 const REDIRECT_BASEURL = 'https://www.freetogame.com';
-const CHUNK_SIZE = 20;
+const CHUNK_SIZE = 10;
 exports.API_PARAMS = {
     '/api/games': '/api/games'
 };

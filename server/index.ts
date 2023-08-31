@@ -29,7 +29,7 @@ app.get("/api/*", async (req: Request, res: Response) => {
           Number(parsedParams?.chunk || 0),
           cacheValue.response,
         );
-        return res.json({ data: chunk, chunk: parsedParams?.chunk || 1 });
+        return res.json({ data: chunk, chunk: Number(parsedParams?.chunk) + 1 || 1 });
       }
 
       return res.json(cacheValue.response);
@@ -51,7 +51,7 @@ app.get("/api/*", async (req: Request, res: Response) => {
 
         if (data instanceof Array) {
           const chunk = getChunk(Number(parsedParams?.chunk || 0), data);
-          return res.json({ data: chunk, chunk: parsedParams?.chunk || 1 });
+          return res.json({ data: chunk, chunk: Number(parsedParams?.chunk) + 1 || 1 });
         }
 
         return res.json(data);
@@ -61,6 +61,10 @@ app.get("/api/*", async (req: Request, res: Response) => {
   } catch (e) {
     res.status(500);
   }
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "..", "front", "dist", "index.html"));
 });
 
 app.listen(CONFIG.PORT);

@@ -1,25 +1,24 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ShortGame } from '../../types'
+import { createSlice } from '@reduxjs/toolkit'
+import { GamesChunk } from '../../types'
 import { api } from '../api.ts'
 
 interface GamesState {
-    games: ShortGame[]
+    chunk: GamesChunk
     isLoading: boolean
 }
 
 const initialState: GamesState = {
-    games: [],
+    chunk: {
+        chunk: 0,
+        data: []
+    },
     isLoading: false,
 }
 
 export const gamesSlice = createSlice({
     name: 'games',
     initialState,
-    reducers: {
-        setGames: (state, action: PayloadAction<ShortGame[]>) => {
-            state.games = action.payload
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addMatcher(api.endpoints.getAllGames.matchPending, (state) => {
@@ -28,8 +27,11 @@ export const gamesSlice = createSlice({
             .addMatcher(
                 api.endpoints.getAllGames.matchFulfilled,
                 (state, action) => {
-                    state.isLoading = false
-                    state.games = action.payload
+                    return {
+                        ...state,
+                        isLoading: false,
+                        chunk: action.payload
+                    }
                 }
             )
             .addMatcher(api.endpoints.getAllGames.matchRejected, (state) => {
@@ -44,8 +46,14 @@ export const gamesSlice = createSlice({
             .addMatcher(
                 api.endpoints.getFilteredGames.matchFulfilled,
                 (state, action) => {
-                    state.isLoading = false
-                    state.games = action.payload
+                    return {
+                        ...state,
+                        isLoading: false,
+                        chunk: {
+                            chunk: action.payload?.chunk,
+                            data: action.payload.chunk === 1 ? action.payload.data : [...state.chunk.data || [], ...action.payload?.data]
+                        }
+                    }
                 }
             )
             .addMatcher(
@@ -63,8 +71,14 @@ export const gamesSlice = createSlice({
             .addMatcher(
                 api.endpoints.getGamesByParameters.matchFulfilled,
                 (state, action) => {
-                    state.isLoading = false
-                    state.games = action.payload
+                    return {
+                        ...state,
+                        isLoading: false,
+                        chunk: {
+                            chunk: action.payload?.chunk,
+                            data: action.payload.chunk === 1 ? action.payload.data : [...state.chunk.data || [], ...action.payload?.data]
+                        }
+                    }
                 }
             )
             .addMatcher(
@@ -75,5 +89,5 @@ export const gamesSlice = createSlice({
             )
     },
 })
-export const { setGames } = gamesSlice.actions
+export const { } = gamesSlice.actions
 export default gamesSlice.reducer

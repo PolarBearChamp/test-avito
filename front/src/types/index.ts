@@ -25,6 +25,11 @@ export interface ShortGame {
     freetogame_profile_url: string
 }
 
+export interface GamesChunk {
+    chunk: number
+    data: ShortGame[]
+}
+
 export interface FullGame extends ShortGame {
     minimum_system_requirements: MinimumSystemRequirements
     screenshots: ScreenshotData[]

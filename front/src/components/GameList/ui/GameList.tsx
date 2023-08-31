@@ -18,6 +18,7 @@ const GameList: FC<IProps> = ({ games, isLoading, isError }) => {
     if (isLoading) {
         return <Spin size="large" style={{ margin: 'auto' }} />
     }
+
     if (isError) {
         return (
             <ErrorModal

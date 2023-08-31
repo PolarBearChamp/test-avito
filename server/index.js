@@ -32,7 +32,7 @@ app.get("/api/*", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             console.log("cache response");
             if (cacheValue.response instanceof Array) {
                 const chunk = (0, utils_1.getChunk)(Number((parsedParams === null || parsedParams === void 0 ? void 0 : parsedParams.chunk) || 0), cacheValue.response);
-                return res.json(chunk);
+                return res.json({ data: chunk, chunk: Number(parsedParams === null || parsedParams === void 0 ? void 0 : parsedParams.chunk) + 1 || 1 });
             }
             return res.json(cacheValue.response);
         }
@@ -48,7 +48,7 @@ app.get("/api/*", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 });
                 if (data instanceof Array) {
                     const chunk = (0, utils_1.getChunk)(Number((parsedParams === null || parsedParams === void 0 ? void 0 : parsedParams.chunk) || 0), data);
-                    return res.json(chunk);
+                    return res.json({ data: chunk, chunk: Number(parsedParams === null || parsedParams === void 0 ? void 0 : parsedParams.chunk) + 1 || 1 });
                 }
                 return res.json(data);
             }
@@ -59,4 +59,7 @@ app.get("/api/*", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500);
     }
 }));
+app.get("*", (req, res) => {
+    res.sendFile(path_1.default.resolve(__dirname, "..", "front", "dist", "index.html"));
+});
 app.listen(config_1.default.PORT);
