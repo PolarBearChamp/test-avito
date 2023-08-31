@@ -5,6 +5,12 @@
   width: 220px;
 }
 
+@media (max-width: 756px) {
+  .SortMenu {
+    margin: 20px auto;
+  }
+}
+
 .customDropdown {
   position: relative;
   display: inline-block;
