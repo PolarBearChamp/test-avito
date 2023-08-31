@@ -10,6 +10,10 @@ exports.parseQuery = parseQuery;
 const getChunk = (index = 0, data) => {
     const slice = index * config_1.default.CHUNK_SIZE;
     if (slice > data.length) {
+        return [];
+    }
+    if (slice + config_1.default.CHUNK_SIZE > data.length) {
+        return data.slice(slice, data.length);
     }
     return data.slice(slice, slice + config_1.default.CHUNK_SIZE);
 };

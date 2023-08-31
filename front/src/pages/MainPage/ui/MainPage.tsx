@@ -36,8 +36,10 @@ const MainPage = () => {
     const dispatch = useAppDispatch()
 
     const [getAllGames, allGamesResult] = useLazyGetAllGamesQuery()
-    const [getFilteredGames, filteredGamesResult] = useLazyGetFilteredGamesQuery()
-    const [getGamesByParameters, gamesByParametersResult] = useLazyGetGamesByParametersQuery()
+    const [getFilteredGames, filteredGamesResult] =
+        useLazyGetFilteredGamesQuery()
+    const [getGamesByParameters, gamesByParametersResult] =
+        useLazyGetGamesByParametersQuery()
     const onReset = () => {
         dispatch(resetAll())
         dispatch(resetSort())
@@ -85,7 +87,7 @@ const MainPage = () => {
                 getGamesByParameters(`?${queryParams}`)
             }
         },
-        { offset: 50 }
+        { offset: 50, debounce: 0, triggerOnNoScroll: true }
     )
 
     return (
@@ -94,7 +96,10 @@ const MainPage = () => {
             <SortMenu />
             <GameList
                 games={currentChunk?.data}
-                isLoading={filteredGamesResult.isLoading || gamesByParametersResult.isLoading}
+                isLoading={
+                    filteredGamesResult.isLoading ||
+                    gamesByParametersResult.isLoading
+                }
                 isError={allGamesResult.isError}
             />
         </div>

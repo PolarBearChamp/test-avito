@@ -3,12 +3,12 @@ import CONFIG from "./config";
 
 export const parseQuery = (url: string) => url.split("?");
 export const getChunk = (index: number = 0, data: Array<ResponseItem>) => {
-  const slice = index * CONFIG.CHUNK_SIZE
+  const slice = index * CONFIG.CHUNK_SIZE;
   if (slice > data.length) {
-
+    return [];
   }
-  return data.slice(
-    slice,
-    slice + CONFIG.CHUNK_SIZE,
-  );
+  if (slice + CONFIG.CHUNK_SIZE > data.length) {
+    return data.slice(slice, data.length);
+  }
+  return data.slice(slice, slice + CONFIG.CHUNK_SIZE);
 };
