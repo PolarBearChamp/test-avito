@@ -1,6 +1,6 @@
 //@ts-ignore
 import React, { FC, useState } from 'react'
-import { useSelectSort } from '../../../store/selectors/useSelectSort.ts'
+import { useSelectSort } from '../../../store/selectors/useSelectSort/useSelectSort.ts'
 import { useAppDispatch } from '../../../hooks/useAppDispatch.ts'
 import { clsx } from 'clsx'
 import cls from './SortMenu.module.scss'

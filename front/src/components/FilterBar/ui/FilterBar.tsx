@@ -8,9 +8,9 @@ import { clsx } from 'clsx'
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import { setGenres, setPlatforms } from '../../../store/slices/filterSlice.ts'
 import { useAppDispatch } from '../../../hooks/useAppDispatch.ts'
-import { useSelectGenres } from '../../../store/selectors/useSelectGenres.ts'
-import { useSelectPlatforms } from '../../../store/selectors/useSelectPlatforms.ts'
-import { useSelectSort } from '../../../store/selectors/useSelectSort.ts'
+import { useSelectGenres } from '../../../store/selectors/useSelectGenres/useSelectGenres.ts'
+import { useSelectPlatforms } from '../../../store/selectors/useSelectPlatforms/useSelectPlatforms.ts'
+import { useSelectSort } from '../../../store/selectors/useSelectSort/useSelectSort.ts'
 import { SortType } from '../../../types'
 
 interface IProps {
