@@ -1,5 +1,5 @@
 //@ts-ignore
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
     useLazyGetAllGamesQuery,
@@ -27,12 +27,22 @@ import { SortMenu } from '../../../components/SortMenu'
 import { GameList } from '../../../components/GameList'
 
 import cls from './MainPage.module.scss'
+import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 
 const MainPage = () => {
     const currentGames = useSelectGames()
+
     const currentGenres = useSelectGenres()
     const currentPlatforms = useSelectPlatforms()
     const currentSort = useSelectSort()
+
+    const [isBottom, setIsBottom] = useState<boolean>(false)
+    const scroll = useBottomScrollListener(
+        () => {
+            setIsBottom((prevState) => !prevState)
+        },
+        { offset: 100 }
+    )
 
     const dispatch = useAppDispatch()
 
@@ -70,6 +80,7 @@ const MainPage = () => {
     useEffect(() => {
         dispatch(setGames(currentGames))
     }, [])
+
     useEffect(() => {
         dispatch(setGames(currentGames))
     }, [currentGames])
@@ -87,7 +98,7 @@ const MainPage = () => {
             getGamesByParameters(`?${queryParams}`)
             dispatch(setGames(gamesByParametersResult.data!))
         }
-    }, [currentGenres, currentPlatforms, currentSort])
+    }, [currentGenres, currentPlatforms, currentSort, isBottom])
 
     return (
         <div className={cls.MainPage}>

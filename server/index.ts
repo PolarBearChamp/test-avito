@@ -1,56 +1,66 @@
-import express, { Request, Response } from 'express'
-import axios, { AxiosRequestConfig } from 'axios'
-import morgan from 'morgan'
+import express, { Request, Response } from "express";
+import qs from "qs";
+import path from "path";
 
-import cors from 'cors'
+import CONFIG from "./config";
+import { getChunk, parseQuery } from "./utils";
+import type { CacheValue, ResponseData } from "./types";
 
-const responseCache = new Map<string, any[]>()
+const app = express();
 
-const app = express()
-const PORT = 3000
+const cache = new Map<string, CacheValue>();
 
-app.use(express.json())
-app.use(morgan('dev'))
-app.use(cors())
-app.get('/', async (req: Request, res: Response) => {
-    const cachedResponse = responseCache.get('data')
+app.use("/", express.static(path.join(__dirname, "..", "front", "dist")));
 
-    if (cachedResponse) {
-        console.log('Sending cached response')
-        res.json(cachedResponse)
-    } else {
-        try {
-            const axiosConfig: AxiosRequestConfig = {
-                headers: {
-                    'X-RapidAPI-Key':
-                        '8912b5836cmsh653f70e27deda63p1cb563jsn7368c8120e4e',
-                    'X-RapidAPI-Host':
-                        'free-to-play-games-database.p.rapidapi.com',
-                },
-            }
+app.get("/api/*", async (req: Request, res: Response) => {
+  try {
+    const cacheValue = cache.get(req.url);
+    console.log({ url: req.url });
+    console.log({ cacheValue: !!cacheValue });
+    const currentDate = Date.now();
 
-            const externalApiResponse = await axios.get(
-                'https://free-to-play-games-database.p.rapidapi.com/api/games',
-                axiosConfig
-            )
-            const responseData = externalApiResponse.data
+    const [url, params] = parseQuery(req.url);
+    const parsedParams = qs.parse(params);
 
-            const chunkSize = 10
-            const chunks: any[] = []
-            for (let i = 0; i < responseData.length; i += chunkSize) {
-                chunks.push(responseData.slice(i, i + chunkSize))
-            }
+    if (cacheValue && currentDate - cacheValue.date <= CONFIG.CACHE_TIMEOUT) {
+      console.log("cache response");
+      if (cacheValue.response instanceof Array) {
+        const chunk = getChunk(
+          Number(parsedParams?.chunk || 0),
+          cacheValue.response,
+        );
+        return res.json({ data: chunk, chunk: parsedParams?.chunk || 1 });
+      }
 
-            responseCache.set('data', chunks)
-
-            console.log('Sending new response')
-            res.json(chunks)
-        } catch (error) {
-            console.log(error)
-        }
+      return res.json(cacheValue.response);
     }
-})
+    console.log("cache invalidate");
+    const convertedUrl = CONFIG.API_PARAMS[url] || url;
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
-})
+    if (convertedUrl) {
+      const response = await fetch(
+        `${CONFIG.REDIRECT_BASEURL}${convertedUrl}?${params}`,
+      );
+
+      if (response.status) {
+        const data = (await response.json()) as ResponseData;
+        cache.set(req.url, {
+          date: Date.now(),
+          response: data,
+        });
+
+        if (data instanceof Array) {
+          const chunk = getChunk(Number(parsedParams?.chunk || 0), data);
+          return res.json({ data: chunk, chunk: parsedParams?.chunk || 1 });
+        }
+
+        return res.json(data);
+      }
+    }
+    throw { message: "api handler error" };
+  } catch (e) {
+    res.status(500);
+  }
+});
+
+app.listen(CONFIG.PORT);
